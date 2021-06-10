@@ -9,8 +9,9 @@ import jp.co.soramitsu.android_foundation.databinding.BottomSheetChooserBinding
 class ChooserBottomSheet(
     context: Activity,
     title: Int,
-    items: List<ChooserItem>
-) : BottomSheetDialog(context, R.style.Theme_MaterialComponents_BottomSheetDialog) {
+    items: List<ChooserItem>,
+    dividerColorResource: Int
+) : BottomSheetDialog(context, R.style.BottomSheetDialog) {
 
     init {
         val binding = BottomSheetChooserBinding.inflate(LayoutInflater.from(context), null, false)
@@ -20,8 +21,9 @@ class ChooserBottomSheet(
 
         binding.title.setText(title)
 
-        val adapter = ChooserAdapter()
+        val adapter = ChooserAdapter(dividerColorResource)
         binding.recyclerView.adapter = adapter
+        binding.divider1.setBackgroundResource(dividerColorResource)
         adapter.submitList(items)
     }
 }
