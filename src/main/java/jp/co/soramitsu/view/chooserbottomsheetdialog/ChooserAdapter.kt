@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import jp.co.soramitsu.common.R
+import jp.co.soramitsu.android_foundation.R
 
-class ChooserAdapter : ListAdapter<ChooserItem, ChooserViewHolder>(DiffCallback) {
+class ChooserAdapter(private val dividerColor: Int) : ListAdapter<ChooserItem, ChooserViewHolder>(DiffCallback) {
 
     override fun getItemViewType(position: Int): Int {
         return R.layout.item_chooser
@@ -19,7 +19,7 @@ class ChooserAdapter : ListAdapter<ChooserItem, ChooserViewHolder>(DiffCallback)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ChooserViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_chooser, viewGroup, false)
 
-        return ChooserViewHolder(view)
+        return ChooserViewHolder(view, dividerColor)
     }
 
     override fun onBindViewHolder(holder: ChooserViewHolder, position: Int) {
@@ -27,13 +27,16 @@ class ChooserAdapter : ListAdapter<ChooserItem, ChooserViewHolder>(DiffCallback)
     }
 }
 
-class ChooserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ChooserViewHolder(itemView: View, private val dividerColor: Int) : RecyclerView.ViewHolder(itemView) {
     private val title: TextView = itemView.findViewById(R.id.chooserItemText)
+    private val divider: View = itemView.findViewById(R.id.divider)
 
     fun bind(item: ChooserItem) {
         title.setText(item.title)
         title.setCompoundDrawablesWithIntrinsicBounds(item.icon, 0, 0, 0)
         title.setOnClickListener { item.clickHandler() }
+
+        divider.setBackgroundResource(dividerColor)
     }
 }
 
