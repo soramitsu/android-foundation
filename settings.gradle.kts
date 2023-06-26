@@ -8,8 +8,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "android-foundation"
-
 include(
     ":runtime-permission"
 )
