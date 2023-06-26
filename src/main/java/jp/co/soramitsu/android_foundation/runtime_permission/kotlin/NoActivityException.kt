@@ -1,4 +1,4 @@
-package jp.co.soramitsu.runtime_permission.kotlin
+package jp.co.soramitsu.android_foundation.runtime_permission.kotlin
 
 import java.lang.Exception
 

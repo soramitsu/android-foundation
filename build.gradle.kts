@@ -1,35 +1,27 @@
-
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven(url = "https://nexus.iroha.tech/repository/maven-soramitsu/")
-        mavenLocal()
-    }
-
-    val androidAppCompatVersion = "1.6.1"
-    extra["androidAppCompat"] = "androidx.appcompat:appcompat:$androidAppCompatVersion"
+plugins {
+    id("com.android.library")
+    kotlin("android")
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}
+val androidAppCompatVersion = "1.6.1"
 
-buildscript {
+android {
+    compileSdk = 33
 
-    repositories {
-        mavenCentral()
-        google()
-        gradlePluginPortal()
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 33
 
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
+        kotlinOptions {
+            freeCompilerArgs += arrayOf(
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            )
         }
     }
 
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
-        classpath("com.android.tools.build:gradle:7.4.2")
-    }
+    namespace = "jp.co.soramitsu.android_foundation"
+}
+
+dependencies {
+    implementation("androidx.appcompat:appcompat:$androidAppCompatVersion")
 }
