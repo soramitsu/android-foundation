@@ -1,8 +1,10 @@
 [versions]
 android_plugin = "7.4.2"
 kotlin = "1.8.21"
-
+android_app_compat = "1.6.1"
 
 [libraries]
 gradleplugins-android = { module = "com.android.tools.build:gradle", version.ref = "android_plugin" }
 gradleplugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+androidAppCompat = { module = "androidx.appcompat:appcompat", version.ref = "android_app_compat" }

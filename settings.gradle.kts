@@ -13,3 +13,5 @@ rootProject.name = "android-foundation"
 include(
     ":runtime-permission"
 )
+
+includeBuild("conventionPlugins")
