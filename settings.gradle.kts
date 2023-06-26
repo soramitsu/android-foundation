@@ -8,8 +8,4 @@ pluginManagement {
     }
 }
 
-include(
-    ":runtime-permission"
-)
-
-includeBuild("conventionPlugins")
+include(":runtime-permission")

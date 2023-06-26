@@ -21,5 +21,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidAppCompat)
+    val androidAppCompat = parent!!.extra["androidAppCompat"].toString()
+    implementation(androidAppCompat)
 }

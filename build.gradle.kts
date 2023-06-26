@@ -1,3 +1,5 @@
+
+
 allprojects {
     repositories {
         google()
@@ -5,6 +7,9 @@ allprojects {
         maven(url = "https://nexus.iroha.tech/repository/maven-soramitsu/")
         mavenLocal()
     }
+
+    val androidAppCompatVersion = "1.6.1"
+    extra["androidAppCompat"] = "androidx.appcompat:appcompat:$androidAppCompatVersion"
 }
 
 tasks.register("clean", Delete::class) {
@@ -12,6 +17,7 @@ tasks.register("clean", Delete::class) {
 }
 
 buildscript {
+
     repositories {
         mavenCentral()
         google()
@@ -23,7 +29,7 @@ buildscript {
     }
 
     dependencies {
-        classpath(libs.gradleplugins.android)
-        classpath(libs.gradleplugins.kotlin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
+        classpath("com.android.tools.build:gradle:7.4.2")
     }
 }
