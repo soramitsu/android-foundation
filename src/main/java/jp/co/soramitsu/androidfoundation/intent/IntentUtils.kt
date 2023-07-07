@@ -14,4 +14,3 @@ fun restartApplication(ctx: Context) {
     mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, pendingStartIntent)
     exitProcess(2)
 }
-    

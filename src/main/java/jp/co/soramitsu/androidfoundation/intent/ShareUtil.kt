@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.core.app.ShareCompat
-import androidx.fragment.app.Fragment
 
 object ShareUtil {
 
