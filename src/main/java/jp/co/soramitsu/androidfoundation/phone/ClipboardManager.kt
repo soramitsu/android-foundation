@@ -1,4 +1,4 @@
-package jp.co.soramitsu.common.resources
+package jp.co.soramitsu.androidfoundation.phone
 
 import android.content.ClipData
 import android.content.ClipboardManager
