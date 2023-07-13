@@ -1,4 +1,4 @@
-package jp.co.soramitsu.androidfoundation
+package jp.co.soramitsu.androidfoundation.phone
 
 import android.os.Vibrator
 
