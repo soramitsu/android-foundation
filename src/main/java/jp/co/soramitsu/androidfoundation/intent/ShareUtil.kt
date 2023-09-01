@@ -18,7 +18,11 @@ object ShareUtil {
         startActivity(intent)
     }
 
-    fun shareText(c: Context, title: String, body: String) {
+    fun shareText(
+        c: Context,
+        title: String,
+        body: String
+    ) {
         val intent = ShareCompat.IntentBuilder(c)
             .setType(mimeText)
             .setText(body)
@@ -28,7 +32,11 @@ object ShareUtil {
         c.startActivity(Intent.createChooser(intent, title))
     }
 
-    fun shareFile(context: Context, title: String, file: Uri) {
+    fun shareFile(
+        context: Context,
+        title: String,
+        file: Uri
+    ) {
         val mime = context.contentResolver.getType(file)
         val intent = ShareCompat.IntentBuilder(context)
             .setType(mime)
@@ -39,7 +47,12 @@ object ShareUtil {
         context.startActivity(Intent.createChooser(intent, title))
     }
 
-    fun shareImageFile(context: Context, title: String, file: Uri, description: String) {
+    fun shareImageFile(
+        context: Context,
+        title: String,
+        file: Uri,
+        description: String
+    ) {
         val intent = ShareCompat.IntentBuilder(context)
             .setType("image/*")
             .setStream(file)
@@ -50,7 +63,11 @@ object ShareUtil {
         context.startActivity(Intent.createChooser(intent, title))
     }
 
-    fun sendEmail(context: Context, targetEmail: String, title: String) {
+    fun sendEmail(
+        context: Context,
+        targetEmail: String,
+        title: String
+    ) {
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
             putExtra(Intent.EXTRA_EMAIL, targetEmail)
             type = "message/rfc822"
