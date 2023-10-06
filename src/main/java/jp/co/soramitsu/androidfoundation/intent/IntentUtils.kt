@@ -46,7 +46,7 @@ fun openSoraTelegramSupportChat(activity: Context?) {
         it.isAppAvailableCompat(APP_TELEGRAM) || it.isAppAvailableCompat(APP_TELEGRAM_X)
     } ?: false
     val intent = if (appAvailable) {
-        Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=${SUPPORT_CHAT_ID}"))
+        Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=$SUPPORT_CHAT_ID"))
     } else {
         Intent(Intent.ACTION_VIEW, Uri.parse(SUPPORT_CHAT_LINK))
     }
