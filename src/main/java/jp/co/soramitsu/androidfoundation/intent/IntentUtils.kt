@@ -2,6 +2,7 @@ package jp.co.soramitsu.androidfoundation.intent
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,7 +17,11 @@ fun restartApplication(ctx: Context) {
         .getActivity(ctx, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
     val mgr = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1.seconds.inWholeMilliseconds, pendingStartIntent)
+    mgr.set(
+        AlarmManager.RTC,
+        System.currentTimeMillis() + 1.seconds.inWholeMilliseconds,
+        pendingStartIntent
+    )
     exitProcess(2)
 }
 
@@ -38,6 +43,24 @@ fun Context.isAppAvailableCompat(appName: String): Boolean {
         true
     } catch (e: PackageManager.NameNotFoundException) {
         false
+    }
+}
+
+fun Context.openGooglePlay() {
+    try {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=$packageName"),
+            )
+        )
+    } catch (e: ActivityNotFoundException) {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$packageName"),
+            )
+        )
     }
 }
 
