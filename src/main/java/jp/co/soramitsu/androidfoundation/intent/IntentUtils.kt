@@ -46,19 +46,21 @@ fun Context.isAppAvailableCompat(appName: String): Boolean {
     }
 }
 
-fun Context.openGooglePlay() {
+fun Context.getIntentForPackage(packageName: String) = this.packageManager.getLaunchIntentForPackage(packageName)
+
+fun Context.openGooglePlay(pn: String? = packageName) {
     try {
         startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("market://details?id=$packageName"),
+                Uri.parse("market://details?id=$pn"),
             )
         )
     } catch (e: ActivityNotFoundException) {
         startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/apps/details?id=$packageName"),
+                Uri.parse("https://play.google.com/store/apps/details?id=$pn"),
             )
         )
     }
