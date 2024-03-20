@@ -38,4 +38,5 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.5.4")
     implementation("androidx.compose.ui:ui:1.5.4")
     implementation("com.google.android.material:material:1.10.0")
+    implementation("junit:junit:4.13.2")
 }
