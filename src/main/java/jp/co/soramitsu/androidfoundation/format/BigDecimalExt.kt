@@ -96,12 +96,12 @@ fun BigDecimal.divideBy(
     scale: Int? = null,
 ): BigDecimal {
     return if (scale == null) {
-        val maxScale = kotlin.math.max(this.scale(), divisor.scale()).coerceAtMost(OptionsProvider.defaultScale)
+        val maxScale = kotlin.math.max(this.scale(), divisor.scale()).coerceAtMost(jp.co.soramitsu.polkaswap.util.OptionsProvider.defaultScale)
 
         if (maxScale != 0) {
             this.divide(divisor, maxScale, RoundingMode.HALF_EVEN)
         } else {
-            this.divide(divisor, OptionsProvider.defaultScale, RoundingMode.HALF_EVEN)
+            this.divide(divisor, jp.co.soramitsu.polkaswap.util.OptionsProvider.defaultScale, RoundingMode.HALF_EVEN)
         }
     } else {
         this.divide(divisor, scale, RoundingMode.HALF_EVEN)
