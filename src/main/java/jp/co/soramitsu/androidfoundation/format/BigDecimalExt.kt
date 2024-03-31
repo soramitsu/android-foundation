@@ -6,6 +6,8 @@ import java.math.RoundingMode
 
 private const val DEFAULT_PRECISION = 2
 
+private const val DEFAULT_SCALE_BIG_DECIMAL = 18
+
 private val precisionsMap: Map<Int, BigDecimal> = mapOf(
     0 to BigDecimal(1),
     1 to BigDecimal(0.1),
@@ -37,7 +39,9 @@ fun formatBigDecimal(
 ): String {
     val newPrecision = if (checkFraction) {
         var nubs = num.abs()
-        if (nubs > BigDecimal.ZERO && nubs < precisionsMap[precision.coerceAtMost(18)]) {
+        if (nubs > BigDecimal.ZERO &&
+            nubs < precisionsMap[precision.coerceAtMost(DEFAULT_SCALE_BIG_DECIMAL)]
+        ) {
             var p = 1
             val scale = nubs.scale()
             while (p < scale) {
@@ -94,14 +98,15 @@ fun BigDecimal.nullZero(): BigDecimal? = if (this.isZero()) null else this
 fun BigDecimal.divideBy(
     divisor: BigDecimal,
     scale: Int? = null,
+    defaultScale: Int = DEFAULT_SCALE_BIG_DECIMAL,
 ): BigDecimal {
     return if (scale == null) {
-        val maxScale = kotlin.math.max(this.scale(), divisor.scale()).coerceAtMost(jp.co.soramitsu.polkaswap.util.OptionsProvider.defaultScale)
+        val maxScale = kotlin.math.max(this.scale(), divisor.scale()).coerceAtMost(defaultScale)
 
         if (maxScale != 0) {
             this.divide(divisor, maxScale, RoundingMode.HALF_EVEN)
         } else {
-            this.divide(divisor, jp.co.soramitsu.polkaswap.util.OptionsProvider.defaultScale, RoundingMode.HALF_EVEN)
+            this.divide(divisor, defaultScale, RoundingMode.HALF_EVEN)
         }
     } else {
         this.divide(divisor, scale, RoundingMode.HALF_EVEN)
