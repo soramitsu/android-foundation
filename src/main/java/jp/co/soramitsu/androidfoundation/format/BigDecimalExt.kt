@@ -3,6 +3,8 @@ package jp.co.soramitsu.androidfoundation.format
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import kotlin.math.absoluteValue
+import kotlin.math.pow
 
 private const val DEFAULT_PRECISION = 2
 
@@ -31,6 +33,29 @@ private val precisionsMap: Map<Int, BigDecimal> = mapOf(
 )
 
 private const val DECIMAL_PATTERN_BASE = "###,###."
+
+fun formatDouble(
+    num: Double,
+    precision: Int = DEFAULT_PRECISION,
+    checkFraction: Boolean = true,
+): String {
+    val newPrecision = if (checkFraction) {
+        var nubs = num.absoluteValue
+        if (nubs > 0 && nubs < 10.0.pow(-precision) ) {
+            var p = 1
+            val scale = DEFAULT_SCALE_BIG_DECIMAL
+            while (p < scale) {
+                nubs *= 10
+                if (nubs > 1) {
+                    break
+                }
+                p++
+            }
+            p.coerceAtLeast(precision)
+        } else precision
+    } else precision
+    return decimalFormatterFor(patternWith(newPrecision)).format(num)
+}
 
 fun formatBigDecimal(
     num: BigDecimal,
