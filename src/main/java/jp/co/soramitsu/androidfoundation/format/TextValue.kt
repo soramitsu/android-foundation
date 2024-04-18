@@ -12,8 +12,9 @@ sealed interface TextValue {
     data class StringResWithArgs(val id: Int, val payload: Array<Any>) : TextValue {
 
         override fun equals(other: Any?): Boolean {
-            if (other !is StringResWithArgs)
+            if (other !is StringResWithArgs) {
                 return false
+            }
 
             return payload.contentEquals(other.payload)
         }

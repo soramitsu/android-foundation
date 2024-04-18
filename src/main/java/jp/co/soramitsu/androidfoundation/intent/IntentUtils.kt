@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import kotlin.system.exitProcess
 import kotlin.time.Duration.Companion.seconds
 
@@ -20,9 +21,27 @@ fun restartApplication(ctx: Context) {
     mgr.set(
         AlarmManager.RTC,
         System.currentTimeMillis() + 1.seconds.inWholeMilliseconds,
-        pendingStartIntent
+        pendingStartIntent,
     )
     exitProcess(2)
+}
+
+fun <T> Intent.getParcelableCompat(key: String, clazz: Class<T>): T? {
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        this.setExtrasClassLoader(clazz.classLoader)
+        extras?.getParcelable(key)
+    } else {
+        getParcelableExtra(key, clazz)
+    }
+}
+
+fun <T> Bundle.getParcelableCompat(key: String, clazz: Class<T>): T? {
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        this.classLoader = clazz.classLoader
+        getParcelable(key)
+    } else {
+        getParcelable(key, clazz)
+    }
 }
 
 const val APP_TELEGRAM = "org.telegram.messenger"
@@ -37,7 +56,7 @@ fun Context.isAppAvailableCompat(appName: String): Boolean {
         } else {
             packageManager.getPackageInfo(
                 appName,
-                PackageManager.PackageInfoFlags.of(0)
+                PackageManager.PackageInfoFlags.of(0),
             )
         }
         true
@@ -46,7 +65,10 @@ fun Context.isAppAvailableCompat(appName: String): Boolean {
     }
 }
 
-fun Context.getIntentForPackage(packageName: String) = this.packageManager.getLaunchIntentForPackage(packageName)
+fun Context.getIntentForPackage(packageName: String) =
+    this.packageManager.getLaunchIntentForPackage(
+        packageName,
+    )
 
 fun Context.openGooglePlay(pn: String? = packageName) {
     try {
@@ -54,14 +76,14 @@ fun Context.openGooglePlay(pn: String? = packageName) {
             Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("market://details?id=$pn"),
-            )
+            ),
         )
     } catch (e: ActivityNotFoundException) {
         startActivity(
             Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("https://play.google.com/store/apps/details?id=$pn"),
-            )
+            ),
         )
     }
 }

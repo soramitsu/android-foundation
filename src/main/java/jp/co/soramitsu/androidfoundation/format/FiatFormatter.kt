@@ -17,12 +17,8 @@ class FiatFormatter : NumberFormatter {
     }
 }
 
-fun mapBalance(
-    bigInteger: BigInteger,
-    precision: Int,
-): BigDecimal = bigInteger.toBigDecimal().divide(BigDecimal(10.0.pow(precision)))
+fun mapBalance(bigInteger: BigInteger, precision: Int): BigDecimal =
+    bigInteger.toBigDecimal().divide(BigDecimal(10.0.pow(precision)))
 
-fun mapBalance(
-    balance: BigDecimal,
-    precision: Int,
-): BigInteger = balance.multiply(BigDecimal(10.0.pow(precision))).toBigInteger()
+fun mapBalance(balance: BigDecimal, precision: Int): BigInteger =
+    balance.multiply(BigDecimal(10.0.pow(precision))).toBigInteger()

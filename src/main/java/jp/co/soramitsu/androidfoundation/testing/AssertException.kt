@@ -6,7 +6,7 @@ import org.junit.Assert
 inline fun <reified T : Exception> assertException(
     expectedMessage: String? = null,
     verifiers: () -> Unit = {},
-    action: () -> Unit
+    action: () -> Unit,
 ) {
     try {
         action.invoke()

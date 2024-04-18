@@ -4,7 +4,7 @@ import java.math.BigDecimal
 import java.math.MathContext
 
 class CompoundNumberFormatter(
-    val abbreviations: List<NumberAbbreviation>
+    val abbreviations: List<NumberAbbreviation>,
 ) : NumberFormatter {
 
     init {
@@ -15,7 +15,7 @@ class CompoundNumberFormatter(
         require(
             abbreviations.zipWithNext().all { (current, next) ->
                 current.threshold <= next.threshold
-            }
+            },
         ) {
             "Abbreviations should go in non-descending order w.r.t. threshold"
         }

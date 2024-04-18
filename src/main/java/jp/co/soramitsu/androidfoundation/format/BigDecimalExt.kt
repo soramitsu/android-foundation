@@ -41,7 +41,7 @@ fun formatDouble(
 ): String {
     val newPrecision = if (checkFraction) {
         var nubs = num.absoluteValue
-        if (nubs > 0 && nubs < 10.0.pow(-precision) ) {
+        if (nubs > 0 && nubs < 10.0.pow(-precision)) {
             var p = 1
             val scale = DEFAULT_SCALE_BIG_DECIMAL
             while (p < scale) {
@@ -52,15 +52,19 @@ fun formatDouble(
                 p++
             }
             p.coerceAtLeast(precision)
-        } else precision
-    } else precision
+        } else {
+            precision
+        }
+    } else {
+        precision
+    }
     return decimalFormatterFor(patternWith(newPrecision)).format(num)
 }
 
 fun formatBigDecimal(
     num: BigDecimal,
     precision: Int = DEFAULT_PRECISION,
-    checkFraction: Boolean = true
+    checkFraction: Boolean = true,
 ): String {
     val newPrecision = if (checkFraction) {
         var nubs = num.abs()
@@ -77,8 +81,12 @@ fun formatBigDecimal(
                 p++
             }
             p.coerceAtLeast(precision)
-        } else precision
-    } else precision
+        } else {
+            precision
+        }
+    } else {
+        precision
+    }
     return decimalFormatterFor(patternWith(newPrecision)).format(num)
 }
 
@@ -86,21 +94,19 @@ private fun patternWith(precision: Int) = "$DECIMAL_PATTERN_BASE${"#".repeat(pre
 
 val Big100 = BigDecimal.valueOf(100)
 
-fun compareNullDesc(o1: BigDecimal?, o2: BigDecimal?): Int =
-    when {
-        o1 == null && o2 == null -> 0
-        o1 != null && o2 != null -> o2.compareTo(o1)
-        o1 == null -> 1
-        else -> -1
-    }
+fun compareNullDesc(o1: BigDecimal?, o2: BigDecimal?): Int = when {
+    o1 == null && o2 == null -> 0
+    o1 != null && o2 != null -> o2.compareTo(o1)
+    o1 == null -> 1
+    else -> -1
+}
 
-fun compareNullDesc(o1: Double?, o2: Double?): Int =
-    when {
-        o1 == null && o2 == null -> 0
-        o1 != null && o2 != null -> o2.compareTo(o1)
-        o1 == null -> 1
-        else -> -1
-    }
+fun compareNullDesc(o1: Double?, o2: Double?): Int = when {
+    o1 == null && o2 == null -> 0
+    o1 != null && o2 != null -> o2.compareTo(o1)
+    o1 == null -> 1
+    else -> -1
+}
 
 fun BigInteger.isZero(): Boolean = this.compareTo(BigInteger.ZERO) == 0
 fun BigDecimal.isZero(): Boolean = this.compareTo(BigDecimal.ZERO) == 0
@@ -138,10 +144,7 @@ fun BigDecimal.divideBy(
     }
 }
 
-fun BigDecimal.safeDivide(
-    divisor: BigDecimal,
-    scale: Int? = null,
-): BigDecimal {
+fun BigDecimal.safeDivide(divisor: BigDecimal, scale: Int? = null): BigDecimal {
     return if (divisor.isZero()) {
         BigDecimal.ZERO
     } else {

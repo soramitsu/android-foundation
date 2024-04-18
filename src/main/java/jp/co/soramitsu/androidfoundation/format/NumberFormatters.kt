@@ -24,6 +24,6 @@ private fun fiatAbbreviatedFormatter() = CompoundNumberFormatter(
         NumberAbbreviation(BigDecimal("1E+3"), BigDecimal.ONE, "", fiatAmountFormatter),
         NumberAbbreviation(BigDecimal("1E+6"), BigDecimal("1E+6"), "M", fiatAmountFormatter),
         NumberAbbreviation(BigDecimal("1E+9"), BigDecimal("1E+9"), "B", fiatAmountFormatter),
-        NumberAbbreviation(BigDecimal("1E+12"), BigDecimal("1E+12"), "T", fiatAmountFormatter)
-    )
+        NumberAbbreviation(BigDecimal("1E+12"), BigDecimal("1E+12"), "T", fiatAmountFormatter),
+    ),
 )

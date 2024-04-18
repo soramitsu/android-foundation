@@ -3,10 +3,10 @@ package jp.co.soramitsu.androidfoundation.phone
 import android.content.ClipData
 import android.content.ClipboardManager
 
-private const val DefaultLabel = "soramitsu"
+private const val DEFAULT_LABEL = "soramitsu"
 
 class ClipboardManager(
-    private val clipboardManager: ClipboardManager
+    private val clipboardManager: ClipboardManager,
 ) {
 
     fun getFromClipboard(): String? = with(clipboardManager) {
@@ -17,7 +17,7 @@ class ClipboardManager(
         }
     }
 
-    fun addToClipboard(text: String, label: String = DefaultLabel) {
+    fun addToClipboard(text: String, label: String = DEFAULT_LABEL) {
         val clip = ClipData.newPlainText(label, text)
         clipboardManager.setPrimaryClip(clip)
     }
