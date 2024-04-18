@@ -2,6 +2,6 @@ package jp.co.soramitsu.androidfoundation.format
 
 fun String.nullIfEmpty(): String? = ifEmpty { null }
 
-const val hexPrefix = "0x"
+const val HEX_PREFIX = "0x"
 
-fun String.removeHexPrefix() = this.removePrefix(hexPrefix)
+fun String.removeHexPrefix() = this.removePrefix(HEX_PREFIX)
