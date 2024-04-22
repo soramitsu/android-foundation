@@ -30,13 +30,24 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.8"
+    }
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.compose.runtime:runtime:1.5.4")
-    implementation("androidx.compose.ui:ui:1.5.4")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation(platform("androidx.compose:compose-bom:2024.04.01"))
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.compose.ui:ui")
+
+    implementation("androidx.core:core-ktx:1.13.0")
+    implementation("com.google.android.material:material:1.11.0")
+
     implementation("junit:junit:4.13.2")
 }
