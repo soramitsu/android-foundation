@@ -3,6 +3,7 @@ plugins {
     id("maven-publish")
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -42,12 +43,14 @@ android {
 
 dependencies {
 
-    implementation(platform("androidx.compose:compose-bom:2024.04.01"))
+    implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.compose.ui:ui")
 
-    implementation("androidx.core:core-ktx:1.13.0")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("com.google.android.material:material:1.12.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     implementation("junit:junit:4.13.2")
 }
