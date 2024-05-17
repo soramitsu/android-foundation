@@ -1,5 +1,6 @@
 package jp.co.soramitsu.androidfoundation.format
 
+import java.math.BigInteger
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -9,11 +10,10 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.jsonPrimitive
-import java.math.BigInteger
 
 typealias JsonBigInteger =
-        @Serializable(with = BigIntegerSerializer::class)
-        BigInteger?
+    @Serializable(with = BigIntegerSerializer::class)
+    BigInteger?
 
 object BigIntegerSerializer : KSerializer<BigInteger?> {
 

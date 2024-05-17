@@ -45,12 +45,11 @@ class ResourceManager : Application.ActivityLifecycleCallbacks {
         return resources.getQuantityString(id, quantity).format(value)
     }
 
-    fun dp2px(dp: Int): Int =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp.toFloat(),
-            resources.displayMetrics
-        ).toInt()
+    fun dp2px(dp: Int): Int = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp.toFloat(),
+        resources.displayMetrics,
+    ).toInt()
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         resourcesNullable = activity.resources
