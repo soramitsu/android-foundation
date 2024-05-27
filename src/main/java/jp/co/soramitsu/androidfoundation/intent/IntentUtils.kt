@@ -12,7 +12,7 @@ import android.os.Bundle
 import kotlin.system.exitProcess
 import kotlin.time.Duration.Companion.seconds
 
-fun restartApplication(ctx: Context) {
+fun restartApplication2(ctx: Context) {
     val launchIntent = ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)
     val pendingStartIntent = PendingIntent
         .getActivity(ctx, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -24,6 +24,14 @@ fun restartApplication(ctx: Context) {
         pendingStartIntent,
     )
     exitProcess(2)
+}
+
+fun Context.restartApplication() {
+    val intent = packageManager.getLaunchIntentForPackage(packageName)
+    val componentName = intent?.component
+    val mainIntent = Intent.makeRestartActivityTask(componentName)
+    startActivity(mainIntent)
+    Runtime.getRuntime().exit(0)
 }
 
 fun <T> Intent.getParcelableCompat(key: String, clazz: Class<T>): T? {
