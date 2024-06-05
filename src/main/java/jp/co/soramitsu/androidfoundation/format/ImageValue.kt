@@ -20,14 +20,14 @@ sealed interface ImageValue {
 fun ImageValue.retrievePainter(): Painter = when (this) {
     is ImageValue.ResImage -> key(id) {
         painterResource(
-            id = id
+            id = id,
         )
     }
     is ImageValue.BitmapImage -> BitmapPainter(
-        image = bitmap.asImageBitmap()
+        image = bitmap.asImageBitmap(),
     )
     is ImageValue.DrawableImage -> BitmapPainter(
         image = drawable.toBitmap()
-            .asImageBitmap()
+            .asImageBitmap(),
     )
 }
