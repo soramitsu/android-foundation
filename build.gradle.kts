@@ -48,6 +48,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("com.google.android.material:material:1.12.0")
