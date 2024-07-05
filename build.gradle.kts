@@ -50,11 +50,14 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material3:material3")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("com.google.android.material:material:1.12.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
+    implementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
     implementation("junit:junit:4.13.2")
     implementation("androidx.navigation:navigation-common-ktx:2.7.7")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
