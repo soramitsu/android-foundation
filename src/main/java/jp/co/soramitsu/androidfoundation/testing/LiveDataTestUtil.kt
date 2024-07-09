@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
-    afterObserve: () -> Unit = {}
+    afterObserve: () -> Unit = {},
 ): T {
     var data: T? = null
     val latch = CountDownLatch(1)
@@ -42,7 +42,10 @@ fun <T> LiveData<T>.getOrAwaitValue(
     return data as T
 }
 
-suspend fun <T> LiveData<T>.observeForTesting(checker: (Int, T) -> Unit, block: suspend () -> Unit) {
+suspend fun <T> LiveData<T>.observeForTesting(
+    checker: (Int, T) -> Unit,
+    block: suspend () -> Unit,
+) {
     var i = 0
     val observer = Observer<T> {
         checker(i++, it)
