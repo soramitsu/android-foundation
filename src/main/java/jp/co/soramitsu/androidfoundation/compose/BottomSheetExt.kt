@@ -36,16 +36,13 @@ fun Fragment.showAsBottomSheet(content: @Composable (() -> Unit) -> Unit) {
     addContentToView(viewGroup, content)
 }
 
-private fun addContentToView(
-    viewGroup: ViewGroup,
-    content: @Composable (() -> Unit) -> Unit
-) {
+private fun addContentToView(viewGroup: ViewGroup, content: @Composable (() -> Unit) -> Unit) {
     viewGroup.addView(
         ComposeView(viewGroup.context).apply {
             setContent {
                 BottomSheetWrapper(viewGroup, this, content)
             }
-        }
+        },
     )
 }
 
@@ -54,7 +51,7 @@ private fun addContentToView(
 private fun BottomSheetWrapper(
     parent: ViewGroup,
     composeView: ComposeView,
-    content: @Composable (() -> Unit) -> Unit
+    content: @Composable (() -> Unit) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(
@@ -74,7 +71,7 @@ private fun BottomSheetWrapper(
             Box(
                 modifier = Modifier
                     .size(18.dp)
-                    .background(Color.Red)
+                    .background(Color.Red),
             )
         },
         content = {
@@ -83,7 +80,7 @@ private fun BottomSheetWrapper(
                     modalBottomSheetState.hide()
                 }
             }
-        }
+        },
     )
 
     BackHandler {
