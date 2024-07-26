@@ -10,6 +10,9 @@ kotlin {
     jvmToolchain(11)
 }
 
+group = "jp.co.soramitsu"
+version = "1.0.0"
+
 android {
     namespace = "jp.co.soramitsu.androidfoundation"
     compileSdk = 34
