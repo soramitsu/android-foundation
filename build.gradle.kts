@@ -1,68 +1,50 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("maven-publish")
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization")
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.kotlinAndroid) apply false
+    alias(libs.plugins.serialization) apply false
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
-kotlin {
-    jvmToolchain(11)
-}
-
-group = "jp.co.soramitsu"
-version = "1.0.0"
-
-android {
-    namespace = "jp.co.soramitsu.androidfoundation"
-    compileSdk = 34
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-        }
-    }
-
-    testOptions {
-        targetSdk = 34
-    }
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
-    }
-}
+val ktlint by configurations.creating
 
 dependencies {
+    ktlint("com.pinterest.ktlint:ktlint-cli:1.0.1") {
+        attributes {
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
+        }
+    }
+    // ktlint(project(":custom-ktlint-ruleset")) // in case of custom ruleset
+}
 
-    implementation(platform("androidx.compose:compose-bom:2024.05.00"))
-    implementation("androidx.compose.runtime:runtime")
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material3:material3")
+tasks.register<JavaExec>("ktlint") {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    args(
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+        "--reporter=checkstyle,output=${project.layout.buildDirectory.file(
+            "ktlintreport/ktlint.xml",
+        ).get().asFile.path}",
+    )
+}
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("com.google.android.material:material:1.12.0")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-
-    implementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-    implementation("junit:junit:4.13.2")
-    implementation("androidx.navigation:navigation-common-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+tasks.register<JavaExec>("ktlintFormat") {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style and format"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
+    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    args(
+        "-F",
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
 }
