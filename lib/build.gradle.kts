@@ -121,7 +121,7 @@ publishing {
     repositories {
         maven {
             name = "scnRepo"
-            url = uri(secret("RELEASE_REPOSITORY_URL")!!)
+            url = uri("https://nexus.iroha.tech/repository/maven-soramitsu/")
             credentials {
                 username = secret("NEXUS_USERNAME")
                 password = secret("NEXUS_PASSWORD")
