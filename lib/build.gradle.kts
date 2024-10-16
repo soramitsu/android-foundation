@@ -26,7 +26,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
 android {
@@ -110,7 +110,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "jp.co.soramitsu"
             artifactId = "android-foundation"
-            version = "0.0.1"
+            version = "0.0.2"
 
             afterEvaluate {
                 from(components["release"])
