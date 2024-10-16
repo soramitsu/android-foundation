@@ -13,6 +13,9 @@ sealed interface UiState {
 
     @Stable
     data object Rendering : UiState
+
+    @Stable
+    data object Initial : UiState
 }
 
-val LocalUiState = staticCompositionLocalOf { UiState.Rendering }
+val LocalUiState = staticCompositionLocalOf { UiState.Initial }

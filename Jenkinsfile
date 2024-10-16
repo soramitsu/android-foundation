@@ -6,7 +6,9 @@ def pipeline = new org.android.ShareFeature(
   gitUpdateSubmodule: true,
   sonarProjectKey: "sora:android-foundation",
   sonarProjectName: "android-foundation",
-  dojoProductType: "sora-mobile"
+  dojoProductType: "sora-mobile",
+  disableDojo: true,
+  sonar: false
 )
 
 pipeline.runPipeline()
